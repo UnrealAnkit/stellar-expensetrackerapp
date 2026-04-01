@@ -1,6 +1,6 @@
 import {
   Contract,
-  SorobanRpc,
+  rpc,
   TransactionBuilder,
   Networks,
   BASE_FEE,
@@ -45,7 +45,7 @@ function validateSetup(): string | null {
 
 // ─── RPC Client ───────────────────────────────────────────────────────────────
 
-export const getRpcServer = () => new SorobanRpc.Server(RPC_URL);
+export const getRpcServer = () => new rpc.Server(RPC_URL);
 
 // ─── Helper: Create dummy account for read-only calls ────────────────────────
 
@@ -83,7 +83,7 @@ function parsePaymentProgress(val: xdr.ScVal): PaymentProgress {
 }
 
 async function simulateAndSend(
-  server: SorobanRpc.Server,
+  server: rpc.Server,
   sourceAccount: { accountId(): string },
   operation: xdr.Operation,
   signTransaction: (xdr: string) => Promise<string>
@@ -100,11 +100,11 @@ async function simulateAndSend(
 
   const simResult = await server.simulateTransaction(tx);
 
-  if (SorobanRpc.Api.isSimulationError(simResult)) {
+  if (rpc.Api.isSimulationError(simResult)) {
     throw new Error(`Simulation failed: ${simResult.error}`);
   }
 
-  const preparedTx = SorobanRpc.assembleTransaction(tx, simResult).build();
+  const preparedTx = rpc.assembleTransaction(tx, simResult).build();
   const signedXdr = await signTransaction(preparedTx.toXDR());
 
   const response = await server.sendTransaction(
@@ -120,10 +120,10 @@ async function simulateAndSend(
   while (retries-- > 0) {
     await new Promise((r) => setTimeout(r, 1000));
     const status = await server.getTransaction(response.hash);
-    if (status.status === SorobanRpc.Api.GetTransactionStatus.SUCCESS) {
+    if (status.status === rpc.Api.GetTransactionStatus.SUCCESS) {
       return response.hash;
     }
-    if (status.status === SorobanRpc.Api.GetTransactionStatus.FAILED) {
+    if (status.status === rpc.Api.GetTransactionStatus.FAILED) {
       throw new Error('Transaction failed on-chain');
     }
   }
@@ -155,7 +155,7 @@ export async function getAllExpenses(): Promise<Expense[]> {
 
     const result = await server.simulateTransaction(tx);
 
-    if (SorobanRpc.Api.isSimulationError(result)) {
+    if (rpc.Api.isSimulationError(result)) {
       console.error('Simulation error:', result.error);
       throw new Error(
         `Contract simulation failed: ${result.error}. Verify CONTRACT_ID and RPC URL.`
@@ -220,7 +220,7 @@ export async function getExpense(expenseId: bigint): Promise<Expense | null> {
       .build();
 
     const result = await server.simulateTransaction(tx);
-    if (SorobanRpc.Api.isSimulationError(result) || !result.result?.retval) {
+    if (rpc.Api.isSimulationError(result) || !result.result?.retval) {
       return null;
     }
 
@@ -273,7 +273,7 @@ export async function getPaymentProgress(
       .build();
 
     const result = await server.simulateTransaction(tx);
-    if (SorobanRpc.Api.isSimulationError(result) || !result.result?.retval) {
+    if (rpc.Api.isSimulationError(result) || !result.result?.retval) {
       return null;
     }
 
@@ -326,7 +326,7 @@ export async function hasPaid(
       .build();
 
     const result = await server.simulateTransaction(tx);
-    if (SorobanRpc.Api.isSimulationError(result) || !result.result?.retval) {
+    if (rpc.Api.isSimulationError(result) || !result.result?.retval) {
       return false;
     }
 
@@ -369,11 +369,11 @@ export async function createExpense(
     .build();
 
   const simResult = await server.simulateTransaction(tx);
-  if (SorobanRpc.Api.isSimulationError(simResult)) {
+  if (rpc.Api.isSimulationError(simResult)) {
     throw new Error(`Simulation failed: ${simResult.error}`);
   }
 
-  const preparedTx = SorobanRpc.assembleTransaction(tx, simResult).build();
+  const preparedTx = rpc.assembleTransaction(tx, simResult).build();
   const signedXdr = await signTransaction(preparedTx.toXDR());
   const response = await server.sendTransaction(
     TransactionBuilder.fromXDR(signedXdr, NETWORK_PASSPHRASE)
@@ -388,13 +388,13 @@ export async function createExpense(
   while (retries-- > 0) {
     await new Promise((r) => setTimeout(r, 1000));
     const status = await server.getTransaction(response.hash);
-    if (status.status === SorobanRpc.Api.GetTransactionStatus.SUCCESS) {
+    if (status.status === rpc.Api.GetTransactionStatus.SUCCESS) {
       const expenseId = status.returnValue
         ? BigInt(String(scValToNative(status.returnValue)))
         : BigInt(0);
       return { txHash: response.hash, expenseId };
     }
-    if (status.status === SorobanRpc.Api.GetTransactionStatus.FAILED) {
+    if (status.status === rpc.Api.GetTransactionStatus.FAILED) {
       throw new Error('Transaction failed on-chain');
     }
   }
@@ -425,11 +425,11 @@ export async function markPaid(
     .build();
 
   const simResult = await server.simulateTransaction(tx);
-  if (SorobanRpc.Api.isSimulationError(simResult)) {
+  if (rpc.Api.isSimulationError(simResult)) {
     throw new Error(`Simulation failed: ${simResult.error}`);
   }
 
-  const preparedTx = SorobanRpc.assembleTransaction(tx, simResult).build();
+  const preparedTx = rpc.assembleTransaction(tx, simResult).build();
   const signedXdr = await signTransaction(preparedTx.toXDR());
   const response = await server.sendTransaction(
     TransactionBuilder.fromXDR(signedXdr, NETWORK_PASSPHRASE)
@@ -443,10 +443,10 @@ export async function markPaid(
   while (retries-- > 0) {
     await new Promise((r) => setTimeout(r, 1000));
     const status = await server.getTransaction(response.hash);
-    if (status.status === SorobanRpc.Api.GetTransactionStatus.SUCCESS) {
+    if (status.status === rpc.Api.GetTransactionStatus.SUCCESS) {
       return response.hash;
     }
-    if (status.status === SorobanRpc.Api.GetTransactionStatus.FAILED) {
+    if (status.status === rpc.Api.GetTransactionStatus.FAILED) {
       throw new Error('Transaction failed on-chain');
     }
   }
