@@ -139,7 +139,7 @@ export async function getAllExpenses(): Promise<Expense[]> {
     accountId: () => 'GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN',
     sequenceNumber: () => '0',
     incrementSequenceNumber: () => {},
-  } as Parameters<typeof TransactionBuilder>[0];
+  } as any;
 
   try {
     const tx = new TransactionBuilder(dummySource, {
@@ -209,7 +209,7 @@ export async function getExpense(expenseId: bigint): Promise<Expense | null> {
       accountId: () => 'GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN',
       sequenceNumber: () => '0',
       incrementSequenceNumber: () => {},
-    } as Parameters<typeof TransactionBuilder>[0];
+    } as any;
 
     const tx = new TransactionBuilder(dummySource, {
       fee: BASE_FEE,
@@ -264,7 +264,7 @@ export async function getPaymentProgress(
       accountId: () => 'GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN',
       sequenceNumber: () => '0',
       incrementSequenceNumber: () => {},
-    } as Parameters<typeof TransactionBuilder>[0];
+    } as any;
 
     const tx = new TransactionBuilder(dummySource, {
       fee: BASE_FEE,
@@ -321,7 +321,7 @@ export async function hasPaid(
       accountId: () => 'GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN',
       sequenceNumber: () => '0',
       incrementSequenceNumber: () => {},
-    } as Parameters<typeof TransactionBuilder>[0];
+    } as any;
 
     const tx = new TransactionBuilder(dummySource, {
       fee: BASE_FEE,
