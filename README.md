@@ -3,7 +3,11 @@
 > **Stellar Journey to Mastery — Orange Belt Submission**
 >
 > A fully on-chain expense splitting dApp built on Stellar with Soroban smart contracts.
-![Expense2](https://github.com/user-attachments/assets/a9d93673-8a62-4160-9a9c-e6f516591654)
+![Expense2](https://githu
+
+https://github.com/user-attachments/assets/8062cc5a-0615-4627-bfd1-25bf0f0f4d0c
+
+b.com/user-attachments/assets/a9d93673-8a62-4160-9a9c-e6f516591654)
 
 ---
 
