@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --font-mono: 'DM Mono', monospace;
+
+  --color-bg: #080c18;
+  --color-surface-1: #0d1326;
+  --color-surface-2: #131b33;
+  --color-surface-3: #192240;
+  --color-border: rgba(99, 155, 255, 0.1);
+  --color-border-strong: rgba(99, 155, 255, 0.22);
+  --color-stellar: #3b9eff;
+  --color-stellar-glow: rgba(59, 158, 255, 0.25);
+  --color-text: #e8edf8;
+  --color-text-muted: #7a8aaa;
+  --color-success: #22d3a0;
+  --color-warning: #f59e0b;
+  --color-danger: #f43f5e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Starfield background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse at 20% 20%, rgba(59, 158, 255, 0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Noise texture overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+.page-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(13, 19, 38, 0.8);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-card-strong {
+  background: rgba(19, 27, 51, 0.9);
+  border: 1px solid var(--color-border-strong);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Stellar glow button */
+.btn-stellar {
+  background: linear-gradient(135deg, #0e90e7 0%, #3b9eff 100%);
+  border: 1px solid rgba(59, 158, 255, 0.4);
+  box-shadow: 0 0 20px rgba(59, 158, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.btn-stellar:hover {
+  box-shadow: 0 0 30px rgba(59, 158, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.btn-stellar:active {
+  transform: translateY(0);
+}
+
+.btn-stellar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Input styles */
+.input-stellar {
+  background: rgba(8, 12, 24, 0.6);
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-stellar:focus {
+  outline: none;
+  border-color: var(--color-stellar);
+  box-shadow: 0 0 0 3px rgba(59, 158, 255, 0.12);
+}
+
+.input-stellar::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Progress bar */
+.progress-track {
+  background: rgba(59, 158, 255, 0.08);
+  border: 1px solid rgba(59, 158, 255, 0.12);
+  overflow: hidden;
+  border-radius: 9999px;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, #0e90e7 0%, #22d3a0 100%);
+  box-shadow: 0 0 8px rgba(59, 158, 255, 0.4);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 9999px;
+}
+
+/* Skeleton shimmer */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.07) 50%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s linear infinite;
+  border-radius: 6px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(59, 158, 255, 0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(59, 158, 255, 0.4); }
+
+/* Status badge */
+.badge-success {
+  background: rgba(34, 211, 160, 0.1);
+  border: 1px solid rgba(34, 211, 160, 0.25);
+  color: #22d3a0;
+}
+
+.badge-pending {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: #f59e0b;
+}
+
+.badge-failed {
+  background: rgba(244, 63, 94, 0.1);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  color: #f43f5e;
+}
+
+.badge-info {
+  background: rgba(59, 158, 255, 0.1);
+  border: 1px solid rgba(59, 158, 255, 0.25);
+  color: #3b9eff;
+}
