@@ -3,10 +3,12 @@
 > **Stellar Journey to Mastery — Orange Belt Submission**
 >
 > A fully on-chain expense splitting dApp built on Stellar with Soroban smart contracts.
+![Expense2](https://github.com/user-attachments/assets/a9d93673-8a62-4160-9a9c-e6f516591654)
 
 ---
 
-## Overview
+## Overview![expense1](https://github.com/user-attachments/assets/92271c7f-136a-4c08-b9f0-7625a0e50763)
+
 
 **Stellar Expense Splitter** lets a group of people create a shared expense (like a dinner bill), record it immutably on the Stellar blockchain via a Soroban smart contract, and let each participant mark their share as paid. Everything is transparent, permissionless, and verifiable on-chain.
 
