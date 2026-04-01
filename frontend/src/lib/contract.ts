@@ -50,7 +50,7 @@ export const getRpcServer = () => new SorobanRpc.Server(RPC_URL);
 // ─── Helper: Create dummy account for read-only calls ────────────────────────
 
 function createDummyAccount(): Account {
-  const dummyPublicKey = 'GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN';
+  const dummyPublicKey = 'GAHCFK2GBLMW73EOI7244ROTHHQ2JPDSQEKNOVBAPO27RY2I7C6AA2N7';
   return new Account(dummyPublicKey, '0');
 }
 
