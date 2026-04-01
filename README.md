@@ -10,7 +10,8 @@
 ## Overview![expense1](https://github.com/user-attachments/assets/92271c7f-136a-4c08-b9f0-7625a0e50763)
 
 
-**Stellar Expense Splitter** lets a group of people create a shared expense (like a dinner bill), record it immutably on the Stellar blockchain via a Soroban smart contract, and let each participant mark their share as paid. Everything is transparent, permissionless, and verifiable on-chain.
+**Stellar Expense Splitter** lets a group of people create a shared expense (like a dinner bill), record it i![expense3](https://github.com/user-attachments/assets/db9aec1b-fb60-47fb-8592-2fefdf6ebde9)
+mmutably on the Stellar blockchain via a Soroban smart contract, and let each participant mark their share as paid. Everything is transparent, permissionless, and verifiable on-chain.
 
 ### Key features
 
