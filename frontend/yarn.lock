@@ -1018,7 +1018,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@noble/curves@npm:^1.0.0, @noble/curves@npm:^1.4.2, @noble/curves@npm:~1.9.0":
+"@noble/curves@npm:^1.0.0, @noble/curves@npm:^1.4.2, @noble/curves@npm:^1.9.7, @noble/curves@npm:~1.9.0":
   version: 1.9.7
   resolution: "@noble/curves@npm:1.9.7"
   dependencies:
@@ -2623,10 +2623,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@stellar/freighter-api@npm:6.0.1":
+  version: 6.0.1
+  resolution: "@stellar/freighter-api@npm:6.0.1"
+  dependencies:
+    buffer: 6.0.3
+    semver: 7.7.1
+  checksum: b5dc2ef70546f1980f02e771b40ac65b4bce0ed5982694d6e0a0510eee3196c298601f2fcbdf98b53b585c0d006a757a232d80d126ffe1dd62936c904ec55b3a
+  languageName: node
+  linkType: hard
+
 "@stellar/js-xdr@npm:^3.1.2":
   version: 3.1.2
   resolution: "@stellar/js-xdr@npm:3.1.2"
   checksum: 6ecc52402603a1c9e64536bcd5b6348e247655aa662ac383967f48c1c6ac46e84cc48ebdbf3ada416d2c2d75898d1ab28dab6ba65d9018e3eb126ea1b2099f04
+  languageName: node
+  linkType: hard
+
+"@stellar/js-xdr@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@stellar/js-xdr@npm:4.0.0"
+  checksum: 947b3405b55f9f236755ed6a93e72ba7659e6d8a1c9096087ee5bf4eec2707ba0bc097403ab607e3ff7e4d3966fef13137fe0cae6219f0403373341a0f18dde7
   languageName: node
   linkType: hard
 
@@ -2648,6 +2665,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@stellar/stellar-base@npm:^15.0.0":
+  version: 15.0.0
+  resolution: "@stellar/stellar-base@npm:15.0.0"
+  dependencies:
+    "@noble/curves": ^1.9.7
+    "@stellar/js-xdr": ^4.0.0
+    base32.js: ^0.1.0
+    bignumber.js: ^9.3.1
+    buffer: ^6.0.3
+    sha.js: ^2.4.12
+  checksum: 0032891573337f3dac8da66d8104fb18e27ef7f062c14a57acb4738de5083a7c504cd3a606a2a88f0b908426483eb7926dd0a36f6d9a6958110f299fb7ae163a
+  languageName: node
+  linkType: hard
+
 "@stellar/stellar-sdk@npm:^13.3.0":
   version: 13.3.0
   resolution: "@stellar/stellar-sdk@npm:13.3.0"
@@ -2661,6 +2692,25 @@ __metadata:
     toml: ^3.0.0
     urijs: ^1.19.1
   checksum: 4fe224a3c65b9ed7eb3d748604594b87ac3d05aebb2aa18d759c9dce5346ea86a6dbe1f3e29edc753cf0fb01e435583fba7adde81bede4efa09b7e9d0dabf359
+  languageName: node
+  linkType: hard
+
+"@stellar/stellar-sdk@npm:^15.0.1":
+  version: 15.0.1
+  resolution: "@stellar/stellar-sdk@npm:15.0.1"
+  dependencies:
+    "@stellar/stellar-base": ^15.0.0
+    axios: 1.14.0
+    bignumber.js: ^9.3.1
+    commander: ^14.0.3
+    eventsource: ^2.0.2
+    feaxios: ^0.0.23
+    randombytes: ^2.1.0
+    toml: ^3.0.0
+    urijs: ^1.19.11
+  bin:
+    stellar-js: bin/stellar-js
+  checksum: 191c813718882f55d0beb0615f341658b210c23d49ba0ed1cff486a4e0aec1999ace6c72822834e5b1306b6a4b98ab375291d154c08de22d4b0567904e86e103
   languageName: node
   linkType: hard
 
@@ -3796,7 +3846,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.8.4":
+"axios@npm:1.14.0, axios@npm:^1.8.4":
   version: 1.14.0
   resolution: "axios@npm:1.14.0"
   dependencies:
@@ -3915,7 +3965,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bignumber.js@npm:^9.0.0, bignumber.js@npm:^9.1.2, bignumber.js@npm:^9.3.0":
+"bignumber.js@npm:^9.0.0, bignumber.js@npm:^9.1.2, bignumber.js@npm:^9.3.0, bignumber.js@npm:^9.3.1":
   version: 9.3.1
   resolution: "bignumber.js@npm:9.3.1"
   checksum: 6ab100271a23a75bb8b99a4b1a34a1a94967ac0b9a52a198147607bd91064e72c6f356380d7a09cd687bf50d81ad2ed1a0a8edfaa90369c9003ed8bb2440d7f0
@@ -4353,7 +4403,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^14.0.0":
+"commander@npm:^14.0.0, commander@npm:^14.0.3":
   version: 14.0.3
   resolution: "commander@npm:14.0.3"
   checksum: b8440159124aefbb02784a8996cd0481d8ce503d8d3cd413f4289d06db7e912c36b511277c2faba62f59152dd9ff79239d75e3b9400d9402851878994201d429
@@ -7426,7 +7476,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sha.js@npm:^2.3.6, sha.js@npm:^2.4.0, sha.js@npm:^2.4.8":
+"sha.js@npm:^2.3.6, sha.js@npm:^2.4.0, sha.js@npm:^2.4.12, sha.js@npm:^2.4.8":
   version: 2.4.12
   resolution: "sha.js@npm:2.4.12"
   dependencies:
@@ -7577,6 +7627,8 @@ __metadata:
     "@radix-ui/react-dialog": ^1.0.5
     "@radix-ui/react-progress": ^1.0.3
     "@radix-ui/react-toast": ^1.1.5
+    "@stellar/freighter-api": 6.0.1
+    "@stellar/stellar-sdk": ^15.0.1
     "@tanstack/react-query": ^5.45.1
     "@tanstack/react-query-devtools": ^5.45.1
     "@testing-library/jest-dom": ^6.4.6
@@ -8214,7 +8266,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"urijs@npm:^1.19.1":
+"urijs@npm:^1.19.1, urijs@npm:^1.19.11":
   version: 1.19.11
   resolution: "urijs@npm:1.19.11"
   checksum: f9b95004560754d30fd7dbee44b47414d662dc9863f1cf5632a7c7983648df11d23c0be73b9b4f9554463b61d5b0a520b70df9e1ee963ebb4af02e6da2cc80f3

@@ -14,6 +14,10 @@ import {
   FREIGHTER_ID,
   allowAllModules,
 } from '@creit.tech/stellar-wallets-kit';
+import {
+  requestAccess as freighterRequestAccess,
+  signTransaction as freighterSignTransaction,
+} from '@stellar/freighter-api';
 import type { WalletState } from '@/types';
 
 // ─── Context ──────────────────────────────────────────────────────────────────
@@ -86,6 +90,12 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
         onWalletSelected: async (option) => {
           try {
             kitRef.current!.setWallet(option.id);
+
+            // Freighter can block localhost origins; proactively request access first.
+            if (option.id === FREIGHTER_ID) {
+              await freighterRequestAccess();
+            }
+
             const { address } = await kitRef.current!.getAddress();
 
             const state: WalletState = {
@@ -98,7 +108,13 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
             localStorage.setItem('stellar_wallet', JSON.stringify(state));
           } catch (err) {
             const msg = err instanceof Error ? err.message : 'Failed to get address';
-            setConnectionError(msg);
+            if (msg.includes('Origin not allowed')) {
+              setConnectionError(
+                'Freighter blocked this origin. Open Freighter Settings > Connected Apps/Blocked Apps, remove localhost, then reconnect.'
+              );
+            } else {
+              setConnectionError(msg);
+            }
           } finally {
             setIsConnecting(false);
           }
@@ -134,6 +150,30 @@ const networkPassphrase =
         (process.env.NEXT_PUBLIC_STELLAR_NETWORK === 'mainnet'
           ? 'Public Global Stellar Network ; September 2015'
           : 'Test SDF Network ; September 2015');
+
+      const isFreighter = wallet.walletName?.toLowerCase().includes('freighter');
+      if (isFreighter && wallet.publicKey) {
+        const result = (await freighterSignTransaction(xdr, {
+          networkPassphrase,
+          address: wallet.publicKey,
+        })) as unknown as
+          | string
+          | { signedTxXdr?: string; error?: string | { message?: string } };
+
+        if (typeof result === 'string') {
+          return result;
+        }
+
+        if (result?.signedTxXdr) {
+          return result.signedTxXdr;
+        }
+
+        const errText =
+          typeof result?.error === 'string'
+            ? result.error
+            : result?.error?.message || 'Freighter failed to sign transaction';
+        throw new Error(errText);
+      }
 
       const { signedTxXdr } = await kitRef.current.signTransaction(xdr, {       
         networkPassphrase,
