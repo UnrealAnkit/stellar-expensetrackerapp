@@ -9,6 +9,8 @@ import {
   nativeToScVal,
   Address,
   TimeoutInfinite,
+  Account,
+  Keypair,
 } from '@stellar/stellar-sdk';
 import type {
   Expense,
@@ -44,6 +46,13 @@ function validateSetup(): string | null {
 // ─── RPC Client ───────────────────────────────────────────────────────────────
 
 export const getRpcServer = () => new SorobanRpc.Server(RPC_URL);
+
+// ─── Helper: Create dummy account for read-only calls ────────────────────────
+
+function createDummyAccount(): Account {
+  const dummyPublicKey = 'GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN';
+  return new Account(dummyPublicKey, '0');
+}
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -133,16 +142,10 @@ export async function getAllExpenses(): Promise<Expense[]> {
 
   const server = getRpcServer();
   const contract = new Contract(CONTRACT_ID);
-
-  // Use simulation with a dummy source for read-only calls
-  const dummySource = {
-    accountId: () => 'GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN',
-    sequenceNumber: () => '0',
-    incrementSequenceNumber: () => {},
-  } as any;
+  const account = createDummyAccount();
 
   try {
-    const tx = new TransactionBuilder(dummySource, {
+    const tx = new TransactionBuilder(account, {
       fee: BASE_FEE,
       networkPassphrase: NETWORK_PASSPHRASE,
     })
@@ -204,14 +207,9 @@ export async function getExpense(expenseId: bigint): Promise<Expense | null> {
 
     const server = getRpcServer();
     const contract = new Contract(CONTRACT_ID);
+    const account = createDummyAccount();
 
-    const dummySource = {
-      accountId: () => 'GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN',
-      sequenceNumber: () => '0',
-      incrementSequenceNumber: () => {},
-    } as any;
-
-    const tx = new TransactionBuilder(dummySource, {
+    const tx = new TransactionBuilder(account, {
       fee: BASE_FEE,
       networkPassphrase: NETWORK_PASSPHRASE,
     })
@@ -259,14 +257,9 @@ export async function getPaymentProgress(
 
     const server = getRpcServer();
     const contract = new Contract(CONTRACT_ID);
+    const account = createDummyAccount();
 
-    const dummySource = {
-      accountId: () => 'GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN',
-      sequenceNumber: () => '0',
-      incrementSequenceNumber: () => {},
-    } as any;
-
-    const tx = new TransactionBuilder(dummySource, {
+    const tx = new TransactionBuilder(account, {
       fee: BASE_FEE,
       networkPassphrase: NETWORK_PASSPHRASE,
     })
@@ -316,14 +309,9 @@ export async function hasPaid(
 
     const server = getRpcServer();
     const contract = new Contract(CONTRACT_ID);
+    const account = createDummyAccount();
 
-    const dummySource = {
-      accountId: () => 'GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN',
-      sequenceNumber: () => '0',
-      incrementSequenceNumber: () => {},
-    } as any;
-
-    const tx = new TransactionBuilder(dummySource, {
+    const tx = new TransactionBuilder(account, {
       fee: BASE_FEE,
       networkPassphrase: NETWORK_PASSPHRASE,
     })
